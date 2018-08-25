@@ -30,7 +30,7 @@ cd baselines
 pip install -e .
 cd ..
 
-git clone https://github.com/susumuota/gym-oculoenv
+git clone https://github.com/susumuota/gym-oculoenv.git
 cd gym-oculoenv
 pip install -e .
 cd ..
