@@ -6,16 +6,16 @@ Gym environment class and examples for oculoenv (Oculomotor task environments).
 # Links
 
 - OpenAI Gym
-
 https://github.com/openai/gym
 
-- OpenAI Baselines
-
-https://github.com/openai/baselines
-
 - oculoenv by WBAI
-
 https://github.com/wbap/oculoenv
+
+- Psychlab
+https://arxiv.org/abs/1801.08116
+
+- OpenAI Baselines
+https://github.com/openai/baselines
 
 
 # Install
