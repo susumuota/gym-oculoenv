@@ -30,39 +30,39 @@ register(
 
 # ChangeDetection
 register(
-    id='ChangeDetectionContent-v0',
+    id='ChangeDetection-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': ChangeDetectionContent(target_number=2, max_learning_count=20, max_interval_count=10)}
 )
 
 register(
-    id='ChangeDetectionContentSkip-v0',
+    id='ChangeDetectionSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': ChangeDetectionContent(target_number=2, max_learning_count=20, max_interval_count=10), 'skip_fixation_point': True}
 )
 
 # OddOneOut
 register(
-    id='OddOneOutContent-v0',
+    id='OddOneOut-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': OddOneOutContent()}
 )
 
 register(
-    id='OddOneOutContentSkip-v0',
+    id='OddOneOutSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': OddOneOutContent(), 'skip_fixation_point': True}
 )
 
 # VisualSearch
 register(
-    id='VisualSearchContent-v0',
+    id='VisualSearch-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': VisualSearchContent()}
 )
 
 register(
-    id='VisualSearchContentSkip-v0',
+    id='VisualSearchSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': VisualSearchContent(), 'skip_fixation_point': True}
 )
