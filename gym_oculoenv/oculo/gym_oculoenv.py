@@ -39,7 +39,7 @@ class GymOculoEnv(gym.Env):
 
     def __init__(self, content=None, delta=DELTA, actions=ACTIONS, skip_fixation_point=False):
         print(content.__class__.__name__, delta, len(actions), skip_fixation_point)
-        self.env = oculoenv.Environment(content)
+        self.env = oculoenv.Environment(content) if content is not None else oculoenv.RedCursorEnvironment(None)
         self.delta_actions = delta * actions
         self.skip_fixation_point = skip_fixation_point
         self.action_space = gym.spaces.Discrete(len(self.delta_actions))

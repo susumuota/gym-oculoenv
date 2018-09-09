@@ -7,38 +7,26 @@ from oculoenv import PointToTargetContent, ChangeDetectionContent, OddOneOutCont
 register(
     id='PointToTarget-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': PointToTargetContent(target_size='small', use_lure=True, lure_size='large')}
+    kwargs={'content': PointToTargetContent()}
 )
 
 register(
     id='PointToTargetSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': PointToTargetContent(target_size='small', use_lure=True, lure_size='large'), 'skip_fixation_point': True}
-)
-
-register(
-    id='PointToTargetSkipNoLureSmall-v0',
-    entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': PointToTargetContent(target_size='small', use_lure=False, lure_size='large'), 'skip_fixation_point': True}
-)
-
-register(
-    id='PointToTargetSkipNoLureLarge-v0',
-    entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': PointToTargetContent(target_size='large', use_lure=False, lure_size='large'), 'skip_fixation_point': True}
+    kwargs={'content': PointToTargetContent(), 'skip_fixation_point': True}
 )
 
 # ChangeDetection
 register(
     id='ChangeDetection-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': ChangeDetectionContent(target_number=2, max_learning_count=20, max_interval_count=10)}
+    kwargs={'content': ChangeDetectionContent()}
 )
 
 register(
     id='ChangeDetectionSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': ChangeDetectionContent(target_number=2, max_learning_count=20, max_interval_count=10), 'skip_fixation_point': True}
+    kwargs={'content': ChangeDetectionContent(), 'skip_fixation_point': True}
 )
 
 # OddOneOut
@@ -91,5 +79,12 @@ register(
     id='RandomDotMotionDiscriminationSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': RandomDotMotionDiscriminationContent(), 'skip_fixation_point': True}
+)
+
+# RedCursorEnvironment
+register(
+    id='RedCursor-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': None}
 )
 

@@ -102,8 +102,6 @@ See https://github.com/openai/baselines#saving-loading-and-visualizing-models
 ```
 PointToTarget-v0
 PointToTargetSkip-v0
-PointToTargetSkipNoLureSmall-v0
-PointToTargetSkipNoLureLarge-v0
 ChangeDetection-v0
 ChangeDetectionSkip-v0
 OddOneOut-v0
@@ -114,9 +112,12 @@ MultipleObjectTracking-v0
 MultipleObjectTrackingSkip-v0
 RandomDotMotionDiscrimination-v0
 RandomDotMotionDiscriminationSkip-v0
+RedCursor-v0
 ```
 
 `Skip` version of environments may reduce learning time. They skip "move to red cross cursor" part in the experiments.
+
+`RedCursor-v0` is a special environment of "move to red cross cursor" part.
 
 See https://github.com/susumuota/gym-oculoenv/blob/master/gym_oculoenv/__init__.py for more details.
 
