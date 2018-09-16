@@ -21,7 +21,10 @@ https://github.com/openai/baselines
 # Install
 
 ```
-pip install oculoenv
+git clone https://github.com/susumuota/oculoenv.git # not wbap's
+cd oculoenv
+pip install -e .
+cd ..
 
 pip install gym
 
@@ -102,6 +105,9 @@ See https://github.com/openai/baselines#saving-loading-and-visualizing-models
 ```
 PointToTarget-v0
 PointToTargetSkip-v0
+PointToTargetD0-v0
+PointToTargetD1-v0
+PointToTargetD2-v0
 ChangeDetection-v0
 ChangeDetectionSkip-v0
 OddOneOut-v0
