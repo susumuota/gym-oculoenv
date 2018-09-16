@@ -110,8 +110,8 @@ I added 3 pre-trained models for PointToTarget environment.
 
 ```
 timesteps  800000, total rewards 2104, target 56.7%, lure 43.3%.
-timesteps 1600000, total rewards 2603, target 98.1%, lure 0.02%.
-timesteps 2400000, total rewards 2658, target 96.0%, lure 0.40%.
+timesteps 1600000, total rewards 2603, target 98.1%, lure  1.9%.
+timesteps 2400000, total rewards 2658, target 96.0%, lure  4.0%.
 ```
 
 ```
