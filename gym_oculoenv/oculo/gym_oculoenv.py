@@ -37,33 +37,20 @@ class GymOculoEnv(gym.Env):
                         [ 0.7071067811865476,  0.7071067811865476]
     ])
 
-    def __init__(self, content=None, delta=DELTA, actions=ACTIONS, skip_fixation_point=False):
-        print(content.__class__.__name__, delta, len(actions), skip_fixation_point)
-        self.env = oculoenv.Environment(content) if content is not None else oculoenv.RedCursorEnvironment(None)
+    def __init__(self, content=None, delta=DELTA, actions=ACTIONS, skip_red_cursor=False):
+        print(content.__class__.__name__, delta, len(actions), skip_red_cursor)
+        self.env = oculoenv.Environment(content, skip_red_cursor=skip_red_cursor) if content is not None else oculoenv.RedCursorEnvironment(None)
         self.delta_actions = delta * actions
-        self.skip_fixation_point = skip_fixation_point
         self.action_space = gym.spaces.Discrete(len(self.delta_actions))
         self.observation_space = gym.spaces.Box(low=0, high=255, shape=(128, 128, 3), dtype=np.uint8)
         self.reward_range = (0, 2)
-        self.last_reward_step = 0
-        self.reward_history = []
 
     def step(self, action):
         obs, reward, done, info = self.env.step(self.delta_actions[action])
-        if reward != 0:
-            self.reward_history.append([reward, self.env.content.step_count - self.last_reward_step])
-            self.last_reward_step = self.env.content.step_count
-        if self.skip_fixation_point and self._is_start_phase(self.env):
-            obs, _, done, info = self._step_to_center(self.env, obs) # skip!!! don't update reward!
         return obs['screen'], reward, done, { 'angle': obs['angle'] }
 
     def reset(self):
-        self._print_status(self.env, self.reward_history)
         obs = self.env.reset()
-        self.last_reward_step = 0
-        self.reward_history = []
-        if self.skip_fixation_point and self._is_start_phase(self.env):
-            obs, reward, done, info = self._step_to_center(self.env, obs) # skip!!!
         return obs['screen']
 
     def render(self, mode='human', close=False):
@@ -73,19 +60,3 @@ class GymOculoEnv(gym.Env):
         '''TODO: seeding'''
         np.random.seed(seed)
         return [seed]
-
-    def _step_to_center(self, env, obs):
-        '''this is a cheat code.'''
-        return env.step([-obs['angle'][0], -obs['angle'][1]])
-
-    def _is_start_phase(self, env):
-        if type(env.content) is oculoenv.ChangeDetectionContent:
-            return env.content.current_phase == env.content.start_phase
-        else:
-            return env.content.phase == 0 # PHASE_START == 0
-
-    def _print_status(self, env, reward_history):
-        reward_history_len = len(reward_history)
-        if reward_history_len > 0:
-            total = np.sum(np.array(reward_history), axis=0)
-            print(env.content.step_count, reward_history_len, total, total / reward_history_len)

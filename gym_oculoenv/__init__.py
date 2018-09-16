@@ -13,7 +13,25 @@ register(
 register(
     id='PointToTargetSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': PointToTargetContent(), 'skip_fixation_point': True}
+    kwargs={'content': PointToTargetContent(), 'skip_red_cursor': True}
+)
+
+register(
+    id='PointToTargetD0-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=0)}
+)
+
+register(
+    id='PointToTargetD1-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=1)}
+)
+
+register(
+    id='PointToTargetD2-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=2)}
 )
 
 # ChangeDetection
@@ -26,7 +44,7 @@ register(
 register(
     id='ChangeDetectionSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': ChangeDetectionContent(), 'skip_fixation_point': True}
+    kwargs={'content': ChangeDetectionContent(), 'skip_red_cursor': True}
 )
 
 # OddOneOut
@@ -39,7 +57,7 @@ register(
 register(
     id='OddOneOutSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': OddOneOutContent(), 'skip_fixation_point': True}
+    kwargs={'content': OddOneOutContent(), 'skip_red_cursor': True}
 )
 
 # VisualSearch
@@ -52,7 +70,7 @@ register(
 register(
     id='VisualSearchSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': VisualSearchContent(), 'skip_fixation_point': True}
+    kwargs={'content': VisualSearchContent(), 'skip_red_cursor': True}
 )
 
 # MultipleObjectTracking
@@ -65,7 +83,7 @@ register(
 register(
     id='MultipleObjectTrackingSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': MultipleObjectTrackingContent(), 'skip_fixation_point': True}
+    kwargs={'content': MultipleObjectTrackingContent(), 'skip_red_cursor': True}
 )
 
 # RandomDotMotionDiscrimination
@@ -78,7 +96,7 @@ register(
 register(
     id='RandomDotMotionDiscriminationSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
-    kwargs={'content': RandomDotMotionDiscriminationContent(), 'skip_fixation_point': True}
+    kwargs={'content': RandomDotMotionDiscriminationContent(), 'skip_red_cursor': True}
 )
 
 # RedCursorEnvironment

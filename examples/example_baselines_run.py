@@ -3,6 +3,7 @@ import multiprocessing
 import os.path as osp
 import gym
 import gym_oculoenv
+from collections import Counter
 from collections import defaultdict
 import tensorflow as tf
 import numpy as np
@@ -121,7 +122,7 @@ def build_env(args):
         env = bench.Monitor(env, logger.get_dir())
         env = retro_wrappers.wrap_deepmind_retro(env)
 
-    else: 
+    else:
        get_session(tf.ConfigProto(allow_soft_placement=True,
                                    intra_op_parallelism_threads=1,
                                    inter_op_parallelism_threads=1))
@@ -129,7 +130,7 @@ def build_env(args):
        env = make_vec_env(env_id, env_type, args.num_env or 1, seed, reward_scale=args.reward_scale)
 
        if env_type == 'mujoco':
-           env = VecNormalize(env) 
+           env = VecNormalize(env)
 
     return env
 
@@ -154,9 +155,6 @@ def get_default_network(env_type):
         return 'cnn'
     else:
         return 'mlp'
-
-    raise ValueError('Unknown env_type {}'.format(env_type))
-
 
 def get_alg_module(alg, submodule=None):
     submodule = submodule or alg
@@ -183,16 +181,21 @@ def get_learn_function_defaults(alg, env_type):
     return kwargs
 
 
-def parse(v):
-    '''
-    convert value of a command-line arg to a python object if possible, othewise, keep as string
-    '''
 
-    assert isinstance(v, str)
-    try:
-        return eval(v)
-    except (NameError, SyntaxError):
-        return v
+def parse_cmdline_kwargs(args):
+    '''
+    convert a list of '='-spaced command-line arguments to a dictionary, evaluating python objects when possible
+    '''
+    def parse(v):
+
+        assert isinstance(v, str)
+        try:
+            return eval(v)
+        except (NameError, SyntaxError):
+            return v
+
+    return {k: parse(v) for k,v in parse_unknown_args(args).items()}
+
 
 
 def main():
@@ -200,7 +203,7 @@ def main():
 
     arg_parser = common_arg_parser()
     args, unknown_args = arg_parser.parse_known_args()
-    extra_args = {k: parse(v) for k, v in parse_unknown_args(unknown_args).items()}
+    extra_args = parse_cmdline_kwargs(unknown_args)
 
     if MPI is None or MPI.COMM_WORLD.Get_rank() == 0:
         rank = 0
@@ -221,17 +224,23 @@ def main():
         env = build_env(args)
         obs = env.reset()
         total_reward = 0
+        rewards = []
         episode = 1
         while True:
             actions = model.step(obs)[0]
             obs, reward, done, _  = env.step(actions)
-            total_reward += reward
+            rewards.append(int(reward[0])) if reward[0] != 0 else None
+            total_reward += reward[0]
             env.render()
             done = done.any() if isinstance(done, np.ndarray) else done
 
             if done:
                 obs = env.reset()
-                print(episode, total_reward[0], total_reward[0] / episode)
+                l = len(rewards)
+                stats = [ (reward, count, count / l) for reward, count in sorted(Counter(rewards).items())]
+                print(stats)
+                print(episode, total_reward, total_reward / episode)
+                rewards = []
                 episode += 1
 
         env.close()
