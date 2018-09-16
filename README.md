@@ -90,7 +90,7 @@ cp -p run.py run.py.bak
 cp -p ../../gym-oculoenv/examples/example_baselines_run.py run.py
 diff -u run.py.bak run.py # or git diff
 
-# learn. A2C, CNN, 400000 steps, approx 2 hours by CPU.
+# learn. A2C, CNN, 400000 steps, approx 2 hours by CPU. 15 minutes by GPU.
 time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn --num_timesteps=400000 --save_path=./ptt.skip.a2c.cnn.400000
 
 # play
@@ -98,6 +98,23 @@ time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn 
 ```
 
 See https://github.com/openai/baselines#saving-loading-and-visualizing-models
+
+## oculoenv example
+
+```
+# learn. A2C, CNN, 800000 steps, approx 4 hours by CPU. 30 minutes by GPU.
+time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=800000 --save_path=./save_model/ptt.only.a2c.cnn.800000.pkl
+```
+
+I added 3 pre-trained models for PointToTarget environment.
+
+```
+time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.800000.pkl
+
+time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.1600000.pkl
+
+time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.2400000.pkl
+```
 
 
 ## Available Environments
