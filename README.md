@@ -109,11 +109,23 @@ time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --
 I added 3 pre-trained models for PointToTarget environment.
 
 ```
+timesteps  800000, total rewards 2104, target 56.7%, lure 43.3%.
+timesteps 1600000, total rewards 2603, target 98.1%, lure 0.02%.
+timesteps 2400000, total rewards 2658, target 96.0%, lure 0.40%.
+```
+
+```
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.800000.pkl
+[(1, 582, 0.43335815338793743), (2, 761, 0.5666418466120625)]
+1 2104.0 2104.0
 
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.1600000.pkl
+[(1, 25, 0.01902587519025875), (2, 1289, 0.9809741248097412)]
+1 2603.0 2603.0
 
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.2400000.pkl
+[(1, 54, 0.03982300884955752), (2, 1302, 0.9601769911504425)]
+1 2658.0 2658.0
 ```
 
 
