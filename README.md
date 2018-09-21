@@ -160,7 +160,7 @@ RedCursorRetina-v0
 
 `Skip` versions of environments may reduce learning time. They skip "move to red cross cursor" part in the experiments.
 
-`Retina` versions simulate human eye's retina images instead of clear images. I copied retina generation functions from WBAI's oculomotor framework. See this page.
+`Retina` versions simulate human eye's retina images instead of clear images. I copied retina image generation functions from WBAI's oculomotor framework. See this page.
 
 https://github.com/wbap/oculomotor/blob/master/application/functions/retina.py
 
