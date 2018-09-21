@@ -3,7 +3,6 @@ import multiprocessing
 import os.path as osp
 import gym
 import gym_oculoenv
-from collections import Counter
 from collections import defaultdict
 import tensorflow as tf
 import numpy as np
@@ -224,23 +223,17 @@ def main():
         env = build_env(args)
         obs = env.reset()
         total_reward = 0
-        rewards = []
         episode = 1
         while True:
             actions = model.step(obs)[0]
             obs, reward, done, _  = env.step(actions)
-            rewards.append(int(reward[0])) if reward[0] != 0 else None
             total_reward += reward[0]
             env.render()
             done = done.any() if isinstance(done, np.ndarray) else done
 
             if done:
                 obs = env.reset()
-                l = len(rewards)
-                stats = [ (reward, count, count / l) for reward, count in sorted(Counter(rewards).items())]
-                print(stats)
                 print(episode, total_reward, total_reward / episode)
-                rewards = []
                 episode += 1
 
         env.close()
