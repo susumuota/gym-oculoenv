@@ -24,30 +24,33 @@ class GymOculoEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
     # move 3.33 degrees per step. TODO: too high?
-    DELTA = 3.333333333333333 / 180.0 * np.pi
+    ACTION_RATE = 3.333333333333333 / 180.0 * np.pi # == 0.05817764173314431
+    # from https://github.com/wbap/oculomotor/blob/master/application/agent/__init__.py
+    # ACTION_RATE = 0.02
 
     # move directions
     # NOOP, UP, RIGHT, LEFT, DOWN, UPRIGHT, UPLEFT, DOWNRIGHT, DOWNLEFT
     # 0.7071067811865476 == np.sqrt(2.0) * 0.5
     # see https://github.com/openai/gym/blob/master/gym/envs/atari/atari_env.py
-    ACTIONS = np.array([[0, 0], [0, -1], [-1, 0], [1, 0], [0, 1],
-                        [-0.7071067811865476, -0.7071067811865476],
-                        [ 0.7071067811865476, -0.7071067811865476],
-                        [-0.7071067811865476,  0.7071067811865476],
-                        [ 0.7071067811865476,  0.7071067811865476]
+    ACTION_DIRECTIONS = np.array([[0, 0], [0, -1], [-1, 0], [1, 0], [0, 1],
+                                  [-0.7071067811865476, -0.7071067811865476],
+                                  [ 0.7071067811865476, -0.7071067811865476],
+                                  [-0.7071067811865476,  0.7071067811865476],
+                                  [ 0.7071067811865476,  0.7071067811865476]
     ])
 
-    def __init__(self, content=None, delta=DELTA, actions=ACTIONS, skip_red_cursor=False):
-        print(content.__class__.__name__, delta, len(actions), skip_red_cursor)
-        self.env = oculoenv.Environment(content, skip_red_cursor=skip_red_cursor) if content is not None else oculoenv.RedCursorEnvironment(None)
-        self.delta_actions = delta * actions
-        self.action_space = gym.spaces.Discrete(len(self.delta_actions))
+    def __init__(self, content=None, action_rate=ACTION_RATE, action_directions=ACTION_DIRECTIONS, skip_red_cursor=False, retina=False):
+        print(content.__class__.__name__, action_rate, len(action_directions), skip_red_cursor, retina)
+        self.env = oculoenv.Environment(content, skip_red_cursor=skip_red_cursor, retina=retina) if content is not None else oculoenv.RedCursorEnvironment(None, retina=retina)
+        self.actions = action_rate * action_directions
+        self.action_space = gym.spaces.Discrete(len(self.actions))
         self.observation_space = gym.spaces.Box(low=0, high=255, shape=(128, 128, 3), dtype=np.uint8)
         self.reward_range = (0, 2)
 
     def step(self, action):
-        obs, reward, done, info = self.env.step(self.delta_actions[action])
-        return obs['screen'], reward, done, { 'angle': obs['angle'] }
+        obs, reward, done, info = self.env.step(self.actions[action])
+        info['angle'] = obs['angle']
+        return obs['screen'], reward, done, info
 
     def reset(self):
         obs = self.env.reset()

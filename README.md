@@ -56,6 +56,7 @@ pip uninstall oculoenv
 
 ```python
 import gym
+import gym.spaces
 import gym_oculoenv
 
 def main():
@@ -91,10 +92,10 @@ cp -p ../../gym-oculoenv/examples/example_baselines_run.py run.py
 diff -u run.py.bak run.py # or git diff
 
 # learn. A2C, CNN, 400000 steps, approx 2 hours by CPU. 15 minutes by GPU.
-time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn --num_timesteps=400000 --save_path=./ptt.skip.a2c.cnn.400000
+time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn --num_timesteps=400000 --save_path=./ptt.skip.a2c.cnn.400000.pkl
 
 # play
-time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn --num_timesteps=0 --load_path=./ptt.skip.a2c.cnn.400000 --play
+time python -m baselines.run --alg=a2c --env=PointToTargetSkip-v0 --network=cnn --num_timesteps=0 --load_path=./ptt.skip.a2c.cnn.400000.pkl --play
 ```
 
 See https://github.com/openai/baselines#saving-loading-and-visualizing-models
@@ -133,24 +134,35 @@ time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --
 
 ```
 PointToTarget-v0
+PointToTargetRetina-v0
 PointToTargetSkip-v0
 PointToTargetD0-v0
 PointToTargetD1-v0
 PointToTargetD2-v0
 ChangeDetection-v0
 ChangeDetectionSkip-v0
+ChangeDetectionRetina-v0
 OddOneOut-v0
 OddOneOutSkip-v0
+OddOneOutRetina-v0
 VisualSearch-v0
 VisualSearchSkip-v0
+VisualSearchRetina-v0
 MultipleObjectTracking-v0
 MultipleObjectTrackingSkip-v0
+MultipleObjectTrackingRetina-v0
 RandomDotMotionDiscrimination-v0
 RandomDotMotionDiscriminationSkip-v0
+RandomDotMotionDiscriminationRetina-v0
 RedCursor-v0
+RedCursorRetina-v0
 ```
 
-`Skip` version of environments may reduce learning time. They skip "move to red cross cursor" part in the experiments.
+`Skip` versions of environments may reduce learning time. They skip "move to red cross cursor" part in the experiments.
+
+`Retina` versions simulate human eye's retina images instead of clear images. I copied retina generation functions from WBAI's oculomotor framework. See this page.
+
+https://github.com/wbap/oculomotor/blob/master/application/functions/retina.py
 
 `RedCursor-v0` is a special environment of "move to red cross cursor" part.
 

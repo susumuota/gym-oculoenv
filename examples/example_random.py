@@ -3,6 +3,7 @@
 import time
 import numpy as np
 import gym
+import gym.spaces
 import gym_oculoenv
 import argparse
 

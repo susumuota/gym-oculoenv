@@ -11,6 +11,12 @@ register(
 )
 
 register(
+    id='PointToTargetRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(), 'retina': True}
+)
+
+register(
     id='PointToTargetSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': PointToTargetContent(), 'skip_red_cursor': True}
@@ -47,6 +53,12 @@ register(
     kwargs={'content': ChangeDetectionContent(), 'skip_red_cursor': True}
 )
 
+register(
+    id='ChangeDetectionRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': ChangeDetectionContent(), 'retina': True}
+)
+
 # OddOneOut
 register(
     id='OddOneOut-v0',
@@ -58,6 +70,12 @@ register(
     id='OddOneOutSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': OddOneOutContent(), 'skip_red_cursor': True}
+)
+
+register(
+    id='OddOneOutRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': OddOneOutContent(), 'retina': True}
 )
 
 # VisualSearch
@@ -73,6 +91,12 @@ register(
     kwargs={'content': VisualSearchContent(), 'skip_red_cursor': True}
 )
 
+register(
+    id='VisualSearchRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': VisualSearchContent(), 'retina': True}
+)
+
 # MultipleObjectTracking
 register(
     id='MultipleObjectTracking-v0',
@@ -84,6 +108,12 @@ register(
     id='MultipleObjectTrackingSkip-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': MultipleObjectTrackingContent(), 'skip_red_cursor': True}
+)
+
+register(
+    id='MultipleObjectTrackingRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': MultipleObjectTrackingContent(), 'retina': True}
 )
 
 # RandomDotMotionDiscrimination
@@ -99,10 +129,22 @@ register(
     kwargs={'content': RandomDotMotionDiscriminationContent(), 'skip_red_cursor': True}
 )
 
+register(
+    id='RandomDotMotionDiscriminationRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': RandomDotMotionDiscriminationContent(), 'retina': True}
+)
+
 # RedCursorEnvironment
 register(
     id='RedCursor-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': None}
+)
+
+register(
+    id='RedCursorRetina-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': None, 'retina': True}
 )
 
