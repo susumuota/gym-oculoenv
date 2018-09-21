@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from collections import Counter
 import numpy as np
 import gym
 import oculoenv
@@ -46,14 +47,23 @@ class GymOculoEnv(gym.Env):
         self.action_space = gym.spaces.Discrete(len(self.actions))
         self.observation_space = gym.spaces.Box(low=0, high=255, shape=(128, 128, 3), dtype=np.uint8)
         self.reward_range = (0, 2)
+        self.last_reward_step = 0
+        self.reward_history = []
+        np.set_printoptions(suppress=True, precision=4) # TODO
 
     def step(self, action):
         obs, reward, done, info = self.env.step(self.actions[action])
         info['angle'] = obs['angle']
+        if reward != 0:
+            self.reward_history.append([reward, self.env.content.step_count - self.last_reward_step])
+            self.last_reward_step = self.env.content.step_count
         return obs['screen'], reward, done, info
 
     def reset(self):
+        self._print_status(self.env, self.reward_history)
         obs = self.env.reset()
+        self.last_reward_step = 0
+        self.reward_history = []
         return obs['screen']
 
     def render(self, mode='human', close=False):
@@ -63,3 +73,12 @@ class GymOculoEnv(gym.Env):
         '''TODO: seeding'''
         np.random.seed(seed)
         return [seed]
+
+    def _print_status(self, env, reward_history):
+        l = len(reward_history)
+        if l > 0:
+            history = np.array(reward_history)
+            total = np.sum(np.array(history), axis=0)
+            print(env.content.step_count, total, total / l)
+            reward_stats = [ [ reward, count, count / l ] for reward, count in sorted(Counter(history[:,0]).items())]
+            print(np.array(reward_stats))
