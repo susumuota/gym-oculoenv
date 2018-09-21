@@ -23,6 +23,12 @@ register(
 )
 
 register(
+    id='PointToTargetRetinaSkip-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(), 'skip_red_cursor': True, 'retina': True}
+)
+
+register(
     id='PointToTargetD0-v0',
     entry_point='gym_oculoenv.oculo:GymOculoEnv',
     kwargs={'content': PointToTargetContent(difficulty=0)}
