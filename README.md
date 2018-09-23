@@ -103,30 +103,68 @@ See https://github.com/openai/baselines#saving-loading-and-visualizing-models
 ## oculoenv example
 
 ```
-# learn. A2C, CNN, 800000 steps, approx 4 hours by CPU. 30 minutes by GPU.
+# learn PointToTarget-v0. A2C, CNN, 800000 steps, approx 1 hours by GPU.
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=800000 --save_path=./save_model/ptt.only.a2c.cnn.800000.pkl
+
+# learn PointToTargetRetina-v0. A2C, CNN, 800000 steps, approx 1.5 hours by GPU.
+time python -m baselines.run --alg=a2c --env=PointToTargetRetina-v0 --network=cnn --num_timesteps=800000 --save_path=./save_model/ptt.retina.a2c.cnn.800000.pkl
 ```
 
-I added 3 pre-trained models for PointToTarget environment.
+### `PointToTarget-v0` results
 
 ```
-timesteps  800000, total rewards 2104, target 56.7%, lure 43.3%.
-timesteps 1600000, total rewards 2603, target 98.1%, lure  1.9%.
-timesteps 2400000, total rewards 2658, target 96.0%, lure  4.0%.
+timesteps  800000, total rewards 2073, target 54.6%, lure 45.4%.
+timesteps 1600000, total rewards 2600, target 98.5%, lure  1.5%.
+timesteps 2400000, total rewards 2620, target 97.1%, lure  2.9%.
 ```
+
+### `PointToTargetRetina-v0` results
+
+```
+timesteps  800000, non convergence
+timesteps 1600000, total rewards 2506, target 77.2%, lure 22.8%.
+timesteps 2400000, total rewards 2616, target 85.8%, lure 14.2%.
+timesteps 3200000, total rewards 2618, target 85.7%, lure 14.3%.
+```
+
+
+### Logs
 
 ```
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.800000.pkl
-[(1, 582, 0.43335815338793743), (2, 761, 0.5666418466120625)]
-1 2104.0 2104.0
+10800 [ 2073 10799] [1.5459 8.0529]
+[[  1.     609.       0.4541]
+ [  2.     732.       0.5459]]
 
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.1600000.pkl
-[(1, 25, 0.01902587519025875), (2, 1289, 0.9809741248097412)]
-1 2603.0 2603.0
+10800 [ 2600 10799] [1.9847 8.2435]
+[[   1.       20.        0.0153]
+ [   2.     1290.        0.9847]]
 
 time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --num_timesteps=0 --play --load_path=./save_model/ptt.only.a2c.cnn.2400000.pkl
-[(1, 54, 0.03982300884955752), (2, 1302, 0.9601769911504425)]
-1 2658.0 2658.0
+10800 [ 2620 10796] [1.9714 8.1234]
+[[   1.       38.        0.0286]
+ [   2.     1291.        0.9714]]
+
+time python -m baselines.run --alg=a2c  --env=PointToTargetRetina-v0 --network=cnn  --num_timesteps=0  --play --load_path=./save_model/ptt.retina.a2c.cnn.800000.pkl
+10800 [   14 10776] [   1.5556 1197.3333]
+[[1.     4.     0.4444]
+ [2.     5.     0.5556]]
+
+time python -m baselines.run --alg=a2c  --env=PointToTargetRetina-v0 --network=cnn  --num_timesteps=0  --play --load_path=./save_model/ptt.retina.a2c.cnn.1600000.pkl
+10800 [ 2506 10796] [1.7723 7.6351]
+[[   1.      322.        0.2277]
+ [   2.     1092.        0.7723]]
+
+time python -m baselines.run --alg=a2c  --env=PointToTargetRetina-v0 --network=cnn  --num_timesteps=0  --play --load_path=./save_model/ptt.retina.a2c.cnn.2400000.pkl
+10800 [ 2616 10793] [1.858  7.6655]
+[[   1.     200.       0.142]
+ [   2.    1208.       0.858]]
+
+time python -m baselines.run --alg=a2c  --env=PointToTargetRetina-v0 --network=cnn  --num_timesteps=0  --play --load_path=./save_model/ptt.retina.a2c.cnn.3200000.pkl
+10800 [ 2618 10792] [1.8567 7.6539]
+[[   1.      202.        0.1433]
+ [   2.     1208.        0.8567]]
 ```
 
 
@@ -136,6 +174,7 @@ time python -m baselines.run --alg=a2c  --env=PointToTarget-v0 --network=cnn  --
 PointToTarget-v0
 PointToTargetRetina-v0
 PointToTargetSkip-v0
+PointToTargetRetinaSkip-v0
 PointToTargetD0-v0
 PointToTargetD1-v0
 PointToTargetD2-v0

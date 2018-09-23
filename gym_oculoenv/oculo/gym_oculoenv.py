@@ -42,7 +42,7 @@ class GymOculoEnv(gym.Env):
 
     def __init__(self, content=None, action_rate=ACTION_RATE, action_directions=ACTION_DIRECTIONS, skip_red_cursor=False, retina=False):
         print(content.__class__.__name__, action_rate, len(action_directions), skip_red_cursor, retina)
-        self.env = oculoenv.Environment(content, skip_red_cursor=skip_red_cursor, retina=retina) if content is not None else oculoenv.RedCursorEnvironment(None, retina=retina)
+        self.env = oculoenv.Environment(content, on_buffer_width=128, skip_red_cursor=skip_red_cursor, retina=retina) if content is not None else oculoenv.RedCursorEnvironment(None, on_buffer_width=128, retina=retina)
         self.actions = action_rate * action_directions
         self.action_space = gym.spaces.Discrete(len(self.actions))
         self.observation_space = gym.spaces.Box(low=0, high=255, shape=(128, 128, 3), dtype=np.uint8)
