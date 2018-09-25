@@ -46,6 +46,24 @@ register(
     kwargs={'content': PointToTargetContent(difficulty=2)}
 )
 
+register(
+    id='PointToTargetRetinaD0-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=0), 'retina': True}
+)
+
+register(
+    id='PointToTargetRetinaD1-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=1), 'retina': True}
+)
+
+register(
+    id='PointToTargetRetinaD2-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': PointToTargetContent(difficulty=2), 'retina': True}
+)
+
 # ChangeDetection
 register(
     id='ChangeDetection-v0',
