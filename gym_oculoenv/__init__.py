@@ -159,6 +159,12 @@ register(
     kwargs={'content': RandomDotMotionDiscriminationContent(), 'retina': True}
 )
 
+register(
+    id='RandomDotMotionDiscriminationAcc-v0',
+    entry_point='gym_oculoenv.oculo:GymOculoEnv',
+    kwargs={'content': RandomDotMotionDiscriminationContent(), 'skip_red_cursor': True, 'action_rate': 0.25 }
+)
+
 # RedCursorEnvironment
 register(
     id='RedCursor-v0',

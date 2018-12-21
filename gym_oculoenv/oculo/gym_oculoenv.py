@@ -55,13 +55,15 @@ class GymOculoEnv(gym.Env):
         info['angle'] = obs['angle']
         if 'result' in info:
             self.result_history.append([reward, info['reaction_step'], 1 if info['result'] == 'success' else 0])
-        return obs['screen'], reward, done, info
+        # return obs['screen'], reward, done, info
+        return obs, reward, done, info
 
     def reset(self):
         self._print_status(self.env, self.result_history)
         obs = self.env.reset()
         self.result_history = []
-        return obs['screen']
+        # return obs['screen']
+        return obs
 
     def render(self, mode='human', close=False):
         return self.env.render(mode, close)
